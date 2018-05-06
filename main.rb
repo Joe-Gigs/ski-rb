@@ -2,11 +2,10 @@ require 'ruby2d'
 
 set background: 'white'
 
-sprites_normal = "skifree-sprites.png"
-sprites_reverse = "skifree-sprites-reversed.png"
+sprites = "skifree-sprites.png"
 
 skier = Sprite.new(
-sprites_normal,
+sprites,
 
 clip_width: 20,
 clip_height: 33,
@@ -26,12 +25,12 @@ animations: {
 		],
 		ski_left: [
 			{
-
+				x: 300, y: 0,
+				time: 100,
 			}
 		]
 	}
 )
-
 
 moving = false
 speed = 3
@@ -45,8 +44,10 @@ on :key_held do |e|
 		skier.x += speed
 		moving = true
 	when 'left'
+		skier.play :ski_left
 		skier.x -= speed
 		moving = true
+		p sprites
 	when 'down'
 		skier.play :ski_down
 		skier.y += speed
@@ -63,6 +64,24 @@ on :key_down do |e|
 		skier.play :jump
 	end
 end
+
+def swap_spritesheet(x)
+end 
+
+#testing dedicated update loop
+update do 
+
+	# on :key_held do |e|
+		# if e.key == 'left'
+ 	# 		sprites = 'skifree-sprites-reversed.png'
+ 	# 	else
+ 	# 		sprites = 'skifree-sprites'
+		# end
+		# p sprites
+		# p e.key
+	# end
+end
+
 
 show
 
